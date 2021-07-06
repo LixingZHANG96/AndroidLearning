@@ -33,10 +33,12 @@ public class MainActivity extends AppCompatActivity {
      * This method is called when the order button is clicked.
      */
     public void submitOrder(View view) {
-        TextView quantityTextView = findViewById(R.id.mainTxtQuantityResult);
-        String rawQuantity = quantityTextView.getText().toString();
-        int quantity = Integer.parseInt(rawQuantity);
-        displayprice(quantity * 10);
+        if (quantity <= 0) {
+            TextView priceTextView = findViewById(R.id.mainTxtPriceResult);
+            priceTextView.setText("Free of Charge!");
+        } else {
+            displayprice(quantity * 10);
+        }
     }
 
     public void increment(View view) {
@@ -46,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void decrement(View view) {
         quantity--;
-        if (quantity<0){
+        if (quantity < 0) {
             quantity = 0;
         }
         display(quantity);
@@ -62,6 +64,6 @@ public class MainActivity extends AppCompatActivity {
 
     private void displayprice(int number) {
         TextView priceTextView = findViewById(R.id.mainTxtPriceResult);
-        priceTextView.setText(NumberFormat.getCurrencyInstance().format(number));
+        priceTextView.setText("Total:" + NumberFormat.getCurrencyInstance().format(number) + "\n Thank you!");
     }
 }
